@@ -1,0 +1,22 @@
+name: GitHub Profile Metrics
+
+on:
+  schedule: [{ cron: "0 * * * *" }]  # Every hour
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: header, repositories
+          config_timezone: America/Toronto
+          config_display: columns
+          plugin_languages: yes
+          plugin_languages_ignored: >-
+            html, css
+          plugin_languages_limit: 6
+          config_theme: dark
